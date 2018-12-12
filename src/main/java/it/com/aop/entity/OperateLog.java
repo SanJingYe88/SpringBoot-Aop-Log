@@ -13,7 +13,7 @@ import java.util.Date;
 public class OperateLog {
 
 //    @Id
-//    private Long id;                 //主键
+//    private Long id;                 //主键可以不要,mongo可提供
     private String operateType;      //操作的类型
     private Date operateDate;           //操作的时间
     private String oldValue;            //旧值

@@ -41,8 +41,10 @@ public class MapperAop {
     @Around(value = "insertPointCut() || updatePointCut() || deletePointCut()")
     public void deleteAround(ProceedingJoinPoint joinPoint){
         OperateLog operateLog = new OperateLog();
+        //获取操作的类
         String className = joinPoint.getSignature().getDeclaringTypeName();
         operateLog.setClassName(className);
+        //获取操作的方法名
         String methodName = joinPoint.getSignature().getName();
         operateLog.setMethodName(methodName);
         Object[] args = joinPoint.getArgs();
@@ -73,6 +75,7 @@ public class MapperAop {
             }
         }
 
+        //目标方法执行
         Object result = null;
         try {
             result = joinPoint.proceed(args);
@@ -82,6 +85,7 @@ public class MapperAop {
             log.info("执行异常:{}",throwable.getMessage());
         }
 
+        //判断操作类型
         if (operateLog.getOperateType().equals(Operation.INSERT)){
             operateLog.setNewValue(user.toString());
         }else {
